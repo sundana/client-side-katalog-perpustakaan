@@ -1,28 +1,34 @@
-import React from 'react';
 import axios from 'axios';
+import { useState } from 'react';
+import './SearchBox.css';
+import { Link } from 'react-router-dom';
 
-function SearchBox() {
-  const [bookData, setBookData] = React.useState([]);
-  const [renderData, setRenderData] = React.useState([]);
+function SearchBox({ endpoint }) {
+  const [input, setInput] = useState('');
+  const [searchData, setSearchData] = useState([]);
 
-  const endpoint = 'http://localhost:8000/api/catalogue?name=';
+  const handleChange = (e) => {
+    setInput(e.target.value.replace(' ', '+'));
+  };
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios(endpoint);
-      if (response.status === 200) {
-        setBookData(response.data);
-        console.log(response.data);
-      } else {
-        throw new Error('Cannot find the book');
-      }
-    };
-    fetchData();
-  }, []);
+  const handleSearch = async () => {
+    if (!input) {
+      alert('Please input the title');
+    }
+    await axios(`${endpoint}search?title=${input}`).then((res) =>
+      setSearchData(res.data)
+    );
+  };
 
-  const handleSearch = (e) => {
-    const filtered = bookData.filter((item) => item?.title === e.target.value);
-    setRenderData(filtered);
+  const handleDelete = async (e) => {
+    await axios
+      .delete(endpoint + e.target.value)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+
+    await axios(`${endpoint}search?title=${input}`).then((res) =>
+      setSearchData(res.data)
+    );
   };
 
   return (
@@ -33,13 +39,29 @@ function SearchBox() {
       <section className='search-form'>
         <input
           type='text'
-          placeholder='Search book by name...'
-          onChange={handleSearch}
+          name='search'
+          placeholder='Search book title...'
+          onChange={handleChange}
         />
+        <button onClick={handleSearch}>Search</button>
       </section>
       <section className='result'>
-        {renderData.map((item, index) => {
-          return <p key={index}>{item?.title}</p>;
+        {searchData.map((item) => {
+          return (
+            <div key={item._id} className='result-card'>
+              <p>ID: {item._id}</p>
+              <p>Book Title: {item.title}</p>
+              <p>Author: {item.writer}</p>
+              <p>Publisher: {item.publisher}</p>
+              <p>Year: {item.year}</p>
+              <button value={item._id} onClick={handleDelete}>
+                Delete Book
+              </button>
+              <button>
+                <Link to={`/${item._id}/edit`}>Edit</Link>
+              </button>
+            </div>
+          );
         })}
       </section>
     </div>
