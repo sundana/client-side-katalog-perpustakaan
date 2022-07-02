@@ -3,13 +3,19 @@ import './App.css';
 import Register from './pages/Register';
 import LandingPage from './pages/LandingPage';
 import Edit from './pages/Edit';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Header from './components/Header';
 
 function App() {
   return (
     <div>
       <Router>
+        <Header />
         <Routes>
           <Route path='/' element={<LandingPage />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/:id/edit' element={<Edit />} />
         </Routes>

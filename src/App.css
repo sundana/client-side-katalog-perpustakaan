@@ -53,3 +53,32 @@
 .edit-heading {
   text-align: center;
 }
+
+/* Header */
+
+.header {
+  box-shadow: 2px 0 5px grey;
+  margin-bottom: 50px;
+}
+.header-container {
+  margin: 0 auto;
+  max-width: 70vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.header .logo {
+  font-size: 0.5rem;
+}
+
+.logo > h1 > a {
+  text-decoration: none;
+  color: black;
+}
+
+.header-btn a {
+  text-decoration: none;
+  color: black;
+}

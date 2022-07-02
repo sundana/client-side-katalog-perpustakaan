@@ -3,7 +3,7 @@ import { useState } from 'react';
 import './SearchBox.css';
 import { Link } from 'react-router-dom';
 
-function SearchBox({ endpoint }) {
+function SearchBox({ endpoint, loginUser }) {
   const [input, setInput] = useState('');
   const [searchData, setSearchData] = useState([]);
 
@@ -15,9 +15,9 @@ function SearchBox({ endpoint }) {
     if (!input) {
       alert('Please input the title');
     }
-    await axios(`${endpoint}search?title=${input}`).then((res) =>
-      setSearchData(res.data)
-    );
+    await axios(`${endpoint}search?title=${input}`, {
+      headers: { Authorization: `Bearer ${loginUser.token}` },
+    }).then((res) => setSearchData(res.data));
   };
 
   const handleDelete = async (e) => {
