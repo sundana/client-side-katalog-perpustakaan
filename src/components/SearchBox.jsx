@@ -34,16 +34,16 @@ function SearchBox({ endpoint, loginUser }) {
   return (
     <div className='search-box-container'>
       <section className='search-box-heading'>
-        <h1>Search catalogue</h1>
+        <h1>Pencaharian</h1>
       </section>
       <section className='search-form'>
         <input
           type='text'
           name='search'
-          placeholder='Search book title...'
+          placeholder='Masukkan judul buku'
           onChange={handleChange}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch}>Cari</button>
       </section>
       <section className='result'>
         {searchData.map((item) => {

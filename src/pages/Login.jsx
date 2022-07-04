@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const endpoint = 'http://localhost:8000/user/login';
 
@@ -23,12 +24,12 @@ function Login() {
     await axios
       .post(endpoint, input)
       .then((res) => {
-        alert(`Login success: ${res.data}`);
+        alert(`Login success: ${res.message}`);
         localStorage.setItem('user', JSON.stringify(res.data));
         navigate('/', { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        alert(err.response.data.message);
       });
   };
 
@@ -58,6 +59,9 @@ function Login() {
             />
             <button type='submit'>Sign In</button>
           </form>
+          <Link to='/sign-up' className='btn btn-login'>
+            Sign Up
+          </Link>
         </section>
       </div>
     </>

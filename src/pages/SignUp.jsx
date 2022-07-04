@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 const endpoint = 'http://localhost:8000/user/register';
 
 function SignUp() {
+  const navigate = useNavigate();
+
   const [newUserData, setNewUserData] = useState({
     username: '',
     email: '',
@@ -29,6 +32,10 @@ function SignUp() {
         })
         .then((res) => {
           alert(`Sign up success: ${res.data}`);
+          navigate('/');
+        })
+        .catch((err) => {
+          alert(err.response?.data?.message);
         });
     } else {
       alert('Password does not match');
@@ -77,6 +84,9 @@ function SignUp() {
             />
             <button type='submit'>Sign Up</button>
           </form>
+          <Link to='/login' className='btn btn-login'>
+            Login
+          </Link>
         </section>
       </div>
     </>

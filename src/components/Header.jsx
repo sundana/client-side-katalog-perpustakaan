@@ -30,9 +30,7 @@ function Header() {
           <div className='header-btn'>
             {isLogin && (
               <Link to={'/register'}>
-                <button>
-                  <Link to={'/register'}>Add</Link>
-                </button>
+                <button>Add</button>
               </Link>
             )}
             {isLogin && <button onClick={logOut}>Logout</button>}

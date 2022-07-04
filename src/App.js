@@ -6,6 +6,7 @@ import Edit from './pages/Edit';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Header from './components/Header';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/:id/edit' element={<Edit />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
     </div>
